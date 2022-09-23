@@ -1,20 +1,15 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
-// const db = require("./config/db");
+
 const app = express();
 
+// add config in dotenv
 dotenv.config({ path: "./config.env" });
+// add database file
+require("./config/db");
 
-const db = process.env.DATABASE;
 const port = process.env.PORT;
-
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => {
-    console.log("Database Connected");
-  })
-  .catch((err) => console.log("Conected Error", err));
 
 app.listen(port, () => {
   console.log(`running in ${port}`);

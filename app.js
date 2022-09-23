@@ -8,6 +8,7 @@ const app = express();
 dotenv.config({ path: "./config.env" });
 // add database file
 require("./config/db");
+const User = require("./Modals/userSchema");
 
 const port = process.env.PORT;
 

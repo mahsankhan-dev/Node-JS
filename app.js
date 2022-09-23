@@ -7,6 +7,7 @@ const app = express();
 dotenv.config({ path: "./config.env" });
 
 const db = process.env.DATABASE;
+const port = process.env.PORT;
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -15,12 +16,12 @@ mongoose
   })
   .catch((err) => console.log("Conected Error", err));
 
-app.listen(3000, () => {
-  console.log("running in 3000");
+app.listen(port, () => {
+  console.log(`running in ${port}`);
 });
 
 const middleware = (req, res, next) => {
-  console.log("middleware jani");
+  console.log("hello middleware");
   next();
 };
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.get("/ads", middleware, (req, res) => {
   res.send("This is ads");
+  console.log("Hello ads");
 });
 
 app.get("/users", (req, res) => {

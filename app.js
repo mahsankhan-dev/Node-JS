@@ -1,14 +1,16 @@
-const dotenv = require("dotenv");
 const express = require("express");
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-const app = express();
-
-// add config in dotenv
 dotenv.config({ path: "./config.env" });
-// add database file
+const app = express();
+// const User = require("./Modals/userSchema");
+
 require("./config/db");
-const User = require("./Modals/userSchema");
+app.use(express.json());
+
+// link router files
+app.use(require("./Router/router"));
 
 const port = process.env.PORT;
 
@@ -21,18 +23,5 @@ const middleware = (req, res, next) => {
   next();
 };
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.get("/ads", middleware, (req, res) => {
-  res.send("This is ads");
-  console.log("Hello ads");
-});
-
-app.get("/users", (req, res) => {
-  res.send("This is users");
-});
-
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -18,10 +18,10 @@ app.listen(port, () => {
   console.log(`running in ${port}`);
 });
 
-const middleware = (req, res, next) => {
-  console.log("hello middleware");
-  next();
-};
+// const middleware = (req, res, next) => {
+//   console.log("hello middleware");
+//   next();
+// };
 
 // app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

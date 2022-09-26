@@ -16,14 +16,24 @@ router.post("/register", (req, res) => {
     return res.status(422).json({ error: "empty filed not allowed" });
   }
 
-  user.findOne({ email: email }).then((userExist) => {
-    if (userExist) {
-      return res.status(422).json({ eror: "User already exist" });
-    }
+  user
+    .findOne({ email: email })
+    .then((userExist) => {
+      if (userExist) {
+        return res.status(422).json({ eror: "User already exist" });
+      }
 
-    const newUser = new user(req.body);
-    newUser.save();
-  });
+      const newUser = new user(req.body);
+      newUser
+        .save()
+        .then(() =>
+          res.status(201).json({ message: "user register successfully" })
+        )
+        .catch((err) => res.status(500).json({ err: "error" }));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   // res.json({ message: req.body });
 });

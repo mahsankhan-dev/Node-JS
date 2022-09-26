@@ -13,11 +13,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  paswword: {
+  password: {
     type: String,
     required: true,
   },
-  cpaswword: {
+  cpassword: {
     type: String,
     required: true,
   },

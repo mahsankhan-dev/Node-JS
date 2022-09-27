@@ -29,4 +29,24 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Empty filed not allowed" });
+    }
+
+    const userLogin = await user.findOne({ email: email });
+    console.log(userLogin);
+    if (userLogin) {
+      res.json({ message: "user signin successfull" });
+    } else {
+      res.status(400).json({ error: "invalid data" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

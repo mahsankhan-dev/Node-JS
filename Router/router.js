@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../Modals/userSchema");
+const bcrypt = require("bcryptjs");
 
 require("../config/db");
 
@@ -41,10 +42,17 @@ router.post("/signin", async (req, res) => {
 
     const userLogin = await user.findOne({ email: email });
     console.log(userLogin);
+
     if (userLogin) {
-      res.json({ message: "user signin successfull" });
+      const passwordMatch = await bcrypt.compare(password, userLogin.password);
+      if (passwordMatch) {
+        res.json({ message: "user signin successfull" });
+        console.log("passwordMatch", passwordMatch);
+      } else {
+        res.status(400).json({ error: "invalid data pass" });
+      }
     } else {
-      res.status(400).json({ error: "invalid data" });
+      res.status(400).json({ error: "invalid data email" });
     }
   } catch (error) {
     console.log(error);

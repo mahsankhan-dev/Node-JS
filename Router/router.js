@@ -54,6 +54,9 @@ router.post("/signin", async (req, res) => {
     } else {
       res.status(400).json({ error: "invalid data email" });
     }
+
+    const token = await userLogin.generateToken();
+    console.log("token ---> ", token);
   } catch (error) {
     console.log(error);
   }

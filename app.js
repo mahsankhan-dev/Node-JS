@@ -15,7 +15,7 @@ app.use(require("./Router/router"));
 const port = process.env.PORT;
 
 app.listen(port, () => {
-  console.log(`runing in ${port}`);
+  console.log(`running in ${port}`);
 });
 
 // const middleware = (req, res, next) => {

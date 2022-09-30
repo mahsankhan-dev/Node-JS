@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.post("/register", async (req, res) => {
   const { name, email, phone, password, cpassword } = req.body;
-
+  console.log();
   if (!name || !email || !phone || !password || !cpassword) {
     return res.status(422).json({ error: "Empty field not allowed" });
   }

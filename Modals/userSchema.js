@@ -24,10 +24,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tokens: {
-    type: Array,
-    default: [],
-  },
+  // tokens: {
+  //   type: Array,
+  //   default: [],
+  // },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
@@ -43,7 +51,7 @@ userSchema.methods.generateToken = function () {
   const user = this;
   const { _id } = user;
   const token = jwt.sign({ _id }, serverSecret);
-  user.tokens.push(token);
+  user.tokens = user.tokens.concat({ token: token });
   return user.save().then(() => token);
 };
 
